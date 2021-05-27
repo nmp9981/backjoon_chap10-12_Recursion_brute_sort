@@ -1,0 +1,13 @@
+#blackjack
+n,m = map(int, input().split())
+li = list(map(int,input().split()))#가로로 입력
+
+#3개의 수의 합
+maxi = 0
+for i in range(0,len(li)):
+  for j in range(i+1,len(li)):
+    for k in range(j+1, len(li)):
+      sum_li = li[i]+li[j]+li[k]
+      if maxi < sum_li and sum_li <= m:
+        maxi = sum_li
+print(maxi)
