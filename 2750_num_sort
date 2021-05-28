@@ -1,0 +1,10 @@
+#정렬기본
+t = int(input())
+li = []
+for j in range(0,t):
+  n = int(input())
+  li.append(n)
+
+li = sorted(li)#정렬
+for i in range(0,len(li)):
+    print(li[i])
