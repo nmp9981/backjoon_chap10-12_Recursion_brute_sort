@@ -1,0 +1,13 @@
+#정렬
+n = int(input())
+li = [0]*10001#미리 리스트를 만든다
+
+#입력숫자에 대해 자리입력(5를 입력했으면 li[5]=1)
+for i in range(0,n):
+  x = int(sys.stdin.readline())
+  li[x] = li[x] + 1#0->1
+
+for i in range(0,10001):#1부터 있는것만 순서대로 출력
+  if li[i] != 0:#1이상인 수에 대해
+    for _ in range(li[i]):#중복된 숫자가 있을 경우
+      print(i)
