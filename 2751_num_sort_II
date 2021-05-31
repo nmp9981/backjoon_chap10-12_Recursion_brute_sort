@@ -1,0 +1,10 @@
+#정렬
+n = int(input())
+li = []
+for i in range(0,n):
+  x = int(input())
+  li.append(x)
+
+li = sorted(li)#내장함수사용=>백준기준 1100ms가량 
+for i in range(0,n):
+  print(li[i])
