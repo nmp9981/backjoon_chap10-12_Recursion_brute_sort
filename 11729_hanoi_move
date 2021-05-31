@@ -1,0 +1,11 @@
+#hanoi
+def move(k,x,y):
+  if k > 1:
+    move(k-1,x,6-x-y)#재귀함수
+  print(x,y)
+  if k > 1:
+    move(k-1,6-x-y,y)#재귀함수
+
+k = int(input())
+print(2**k - 1)#옮긴횟수
+move(k,1,3)#이동과정
