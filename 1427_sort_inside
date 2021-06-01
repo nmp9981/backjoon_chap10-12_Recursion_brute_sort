@@ -1,0 +1,6 @@
+#내림차순정렬
+n = int(input())
+n = str(n)#문자열로 변환
+new = sorted(n, reverse = True)#내림차순으로 정렬하기
+for i in range(0,len(new)):#출력
+  print(new[i],end="")
