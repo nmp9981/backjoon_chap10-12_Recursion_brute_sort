@@ -1,0 +1,11 @@
+n = int(input())
+s = []
+
+for i in range(n):
+  age, name = list(map(str, input().split()))
+  s.append((age,name))#2개 원소의 리스트를 추가 (나이, 이름)
+
+s.sort(key = lambda x:(int(x[0])))#정렬 기준(나이), 동갑일시 먼저 등록한 순으로(나이 정렬 시 자동으로 처리)
+
+for i in s:
+  print(i[0],i[1])#출력(나이, 이름)
