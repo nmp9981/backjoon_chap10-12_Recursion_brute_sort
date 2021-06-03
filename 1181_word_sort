@@ -1,0 +1,27 @@
+#단어 정렬
+def word(s,l):
+  set_l = list(set(l))#각 단어의 길이가 몇인가(중복제거)
+  set_l.sort()#길이순 나열
+  s = list(set(s))#중복단어 제거
+
+  for i in range(len(set_l)):#길이가 짧은 것이 앞으로 나와야함
+    ws = []#리스트 초기화(길이가 같은 단어끼리만 묶음)
+    for j in range(0,len(s)):
+      if len(s[j]) == set_l[i]:
+        ws.append(s[j])
+    
+    #사전식 정렬(길이가 같은 단어끼리만)
+    ws.sort()
+    #출력
+    for k in range(0,len(ws)):
+      print(ws[k])
+
+#입력
+t = int(input())
+s = []
+l = []
+for i in range(0,t):
+  st = input()#단어 입력
+  s.append(st)#단어 추가
+  l.append(len(st))#단어의 길이 추가
+word(s,l)
