@@ -1,0 +1,10 @@
+import sys
+n = int(sys.stdin.readline())
+s = []
+
+for i in range(n):
+  s.append(list(map(int, sys.stdin.readline().split())))#2개 원소의 리스트를 추가 
+
+s.sort(key = lambda x:(x[1],x[0]))#첫, 두번째 정렬 기준
+for i in s:
+  print(i[0],i[1])#출력
