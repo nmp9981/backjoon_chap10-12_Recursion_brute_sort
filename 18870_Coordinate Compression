@@ -1,0 +1,12 @@
+#좌표 결합
+#해당 숫자가 몇번째로 작은가?
+def compact(li,li_set):
+  dic = {li_set[i]: i for i in range(len(li_set))}
+  for i in li:
+    print(dic[i], end=" ")
+
+#입력
+n = int(input())
+li = list(map(int,input().split()))
+li_set = list(sorted(set(li)))#중복 제거후 정렬
+compact(li,li_set)
