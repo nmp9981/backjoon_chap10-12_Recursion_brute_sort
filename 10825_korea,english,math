@@ -1,0 +1,13 @@
+#입력
+t = int(input())
+li = []
+#2차원 배열 생성
+for i in range(t):
+  name,korea,eng,math = list(map(str, input().split()))
+  li.append([name, int(korea), int(eng), int(math)])#자료형을 맞춰줌
+
+#2차원 배열 정렬
+li.sort(key= lambda x: (-x[1], x[2], -x[3], x[0] ))#각 기준(-는 내림차순)
+#출력
+for i in range(t):
+  print(li[i][0])
