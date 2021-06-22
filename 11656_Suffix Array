@@ -1,0 +1,12 @@
+#입력
+s = input()
+li = []
+l = len(s)
+for i in range(l):
+  st = s[i:l]
+  li.append(st)
+
+#사전순 정렬
+li = sorted(li)
+for i in range(l):
+  print(li[i])
