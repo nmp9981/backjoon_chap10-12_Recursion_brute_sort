@@ -1,0 +1,13 @@
+#입력
+n = int(input())
+li = list(map(int, input().split()))
+
+#정렬
+p = sorted(li)
+#해당수가 몇번째로 작은가?
+for i in range(len(li)): #li[i]의 값이 p[j]와 같다면
+  for j in range(len(p)):
+    if li[i] == p[j]:
+      p[j] = -1 #이미 찾음(중복 방지)
+      print(j,end=" ")#위치를 출력
+      break
