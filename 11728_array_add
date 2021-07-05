@@ -1,0 +1,10 @@
+#입력
+n,m = map(int, input().split())
+a = list(map(int, input().split()))
+b = list(map(int, input().split()))
+li = a+b #병합
+li.sort() #정렬
+
+#출력
+for i in li:
+  print(i,end=' ')
