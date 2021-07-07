@@ -1,0 +1,19 @@
+#입력
+m = input()
+n = list(m)
+
+#10의 배수판정
+if '0' not in n:
+  print(-1)
+else:
+  #모든 성분을 숫자로
+  p = []
+  for i in range(len(n)):
+    p.append(int(n[i]))
+
+  if sum(p) % 3 != 0: #3의배수 판정
+    print(-1)
+  else:
+    p.sort() #최대값 구하기
+    for j in range(len(p)-1,-1,-1):
+      print(p[j],end='')
