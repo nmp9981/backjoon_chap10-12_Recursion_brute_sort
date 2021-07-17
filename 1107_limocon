@@ -1,0 +1,24 @@
+#입력
+n = int(input())
+m = int(input())
+fail = list(map(str,input().split()))
+
+ans = abs(n-100)
+#0~1000000순회
+for i in range(1000001):
+	num = list(str(i))
+	flag =False
+	
+	#누를 수 없으면?
+	for k in num:
+		if k in fail:
+			flag = True
+			break
+	
+	if flag == True:
+		continue
+	else:
+		ans = min(ans, len(str(i))+abs(n-i))
+
+#출력
+print(ans)
