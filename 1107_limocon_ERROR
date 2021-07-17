@@ -1,0 +1,39 @@
+#입력
+n = int(input())
+m = int(input())
+fail = list(map(str,input().split()))
+
+#리스트 내에 있는가?
+def isfail(goal):
+	for i in range(m):
+		if fail[i] in str(goal):
+			return False
+	return True
+
+#역으로 계산
+count_plus = 0
+goal = n #초기화
+while goal >= 0:
+	if isfail(goal) == False:
+		goal -= 1
+		count_plus += 1
+	else:
+		count_plus += len(str(goal))
+		break
+
+count_minus = 0
+goal = n #초기화
+while goal <= 500000:
+	if isfail(goal) == False:
+		goal += 1
+		count_minus += 1
+	else:
+		count_minus += len(str(goal))
+		break
+
+#100에서 계산
+count100 = abs(goal-100)
+
+#출력
+result = min(count_plus, count_minus, count100)
+print(result)
