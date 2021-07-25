@@ -1,0 +1,35 @@
+#행렬 곱셈
+def mat(p,q):
+	matrix = [[0]*n for i in range(n)]
+	for i in range(n):
+		for j in range(n):
+			m = 0
+			for k in range(n):
+				m += p[i][k] * q[k][j]
+			matrix[i][j] = m%1000
+	return matrix
+	
+#행렬제곱(분할)
+def power(a,b):
+	if b == 1:
+		return a
+	if b % 2 == 0:
+		p = power(a,b//2)
+		return mat(p,p)
+	else:
+		p = power(a,(b-1)//2)
+		return mat(mat(p,p),a)
+
+#입력
+n,b = map(int,input().split())
+a = []
+for i in range(n):
+	x = list(map(int, input().split()))
+	a.append(x)
+
+#행렬 출력
+ans = power(a,b)
+for i in range(n):
+	for j in range(n):
+		print(ans[i][j]%1000,end = " ")
+	print()
