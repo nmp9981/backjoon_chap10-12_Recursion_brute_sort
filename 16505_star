@@ -1,0 +1,21 @@
+#별찍기
+def stars(star):
+  matrix = []
+  #위 2개
+  for i in range(len(star)):
+    matrix.append(star[i]+" "*i+star[i])
+  #아래 1개
+  for i in range(len(star)):
+    matrix.append(star[i])
+  return matrix
+
+#입력
+n = int(input())
+if n == 0:
+  print("*")
+else:
+  star = ["**","*"]
+  for i in range(n-1):
+    star = stars(star)
+  for i in star:
+    print(i)
