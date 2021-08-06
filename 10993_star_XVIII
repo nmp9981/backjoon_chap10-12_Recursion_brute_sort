@@ -1,0 +1,54 @@
+#별찍기
+def stars1(star):
+  matrix = []
+  l = len(star)*2 + 1
+  
+  for i in range(l):
+    if i == 0:#맨위
+      matrix.append('*'*(len(star)*2+2)+star[-1])
+    elif 1 <= i <= len(star):#가운데(재귀부분)
+      back = 2*len(star) - 2*i
+      matrix.append("*"+' '*back+star[i-1]+' '*back+"*")
+    elif i == l-1:#맨밑
+      matrix.append("*")
+    else:#밑
+      back2 = 2*len(star) - 2*(i-len(star)) - 1
+      matrix.append("*"+' '*back2+"*")
+  return matrix
+
+def stars2(star):
+  matrix = []
+  l = len(star)*2 + 1
+  
+  for i in range(l):
+    if i == 0:#맨위
+      matrix.append("*")
+    elif 1 <= i < len(star):#위
+      matrix.append("*"+" "*(2*i-1)+"*")
+    elif len(star) <= i < l-1:#아래(재귀)
+      back2 = 2*i-2*len(star)
+      matrix.append("*"+" "*back2+star[i-len(star)]+" "*back2+"*")
+    else:#맨밑
+      matrix.append('*'*(len(star)*2+2)+star[0])
+    
+  return matrix
+
+#입력
+n = int(input(''))
+
+#출력
+star = ["*"]
+for i in range(n-1):
+  if i % 2 == 0:
+    star = stars1(star)
+  else:
+    star = stars2(star)
+
+for i in range(len(star)):
+  if n % 2 == 1:
+    back = len(star) - 1 - i
+    print(' '*back,end='')
+    print(star[i])
+  else:
+    print(' '*i,end='')
+    print(star[i])
