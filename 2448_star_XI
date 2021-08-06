@@ -1,0 +1,33 @@
+#별찍기
+def stars(star):
+  matrix = []
+  l = len(star)
+  #위 1개
+  for i in range(l):
+    matrix.append(star[i])
+  #아래 2개
+  for i in range(l):
+    back = 2*l - 1 - 2*i
+    matrix.append(star[i]+" "*back+star[i])
+  
+  return matrix
+
+#입력
+n = int(input(''))
+#몇번 해야하는가?
+n = int(n/3)
+k = 1
+while n>1:
+  n = int(n/2)
+  k += 1
+
+#출력
+star = ["*","*"+" "+"*","*****"]
+for i in range(k-1):
+  star = stars(star)
+for i in range(len(star)):
+  empty = len(star) - i - 1
+  print(" "*empty,end="")
+  print(star[i],end="")
+  print(" "*(empty),end="")
+  print()
