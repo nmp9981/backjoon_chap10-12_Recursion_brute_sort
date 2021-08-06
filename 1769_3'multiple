@@ -1,0 +1,23 @@
+#3의 배수 변환
+def multi3(n):
+
+  #출력
+  if len(n) == 1:
+    print(len(matrix)-1)
+    if matrix[-1] % 3 == 0:
+      print('YES')
+    else:
+      print('NO') 
+    return 
+
+  s = 0
+  for i in n:
+    s += int(i)
+  matrix.append(s)
+  multi3(str(s)) #재귀
+
+#입력
+x = input()
+matrix = [int(x)]
+#재귀함수
+li = multi3(x)
