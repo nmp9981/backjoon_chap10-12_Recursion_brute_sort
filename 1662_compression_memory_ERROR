@@ -1,0 +1,38 @@
+import sys
+sys.setrecursionlimit(10**9)
+
+#압축해제
+def zip(stack):
+  global count,add
+  #함수 종료
+  if '(' not in stack:
+    if stack[-1] == ')':#마지막 괄호제거
+      stack.pop()
+    print(len(stack)+add)
+    return
+
+  if stack[-1] == '(':
+    stack.pop()#괄호
+    re = int(stack.pop()) #반복횟수
+    for i in range(re*count):
+      stack.append(-1)
+    stack.append(')')#괄호 추가
+    count = 0 #초기화
+    
+    zip(stack) #재귀
+  elif stack[-1] == ')':
+    stack.pop()
+    add += count
+    count = 0
+    zip(stack) #재귀
+  else:
+    stack.pop()
+    count += 1
+    zip(stack) #재귀
+  
+#입력
+s = input()
+stack = list(s)
+add = 0
+count = 0 #반복하는 문자열 길이
+zip(stack)
