@@ -1,0 +1,48 @@
+#최소의 정사각형 수
+def board(x,y,chess):
+  error1 = 0
+  error2 = 0
+  for i in range(x,x+8):
+    for j in range(y,y+8):
+      if chess[i][j] != chess1[i-x][j-y]:
+        error1 += 1
+      if chess[i][j] != chess2[i-x][j-y]:
+        error2 += 1
+
+  error = min(error1,error2)
+  return error
+
+#입력
+n,m = map(int, input().split())
+chess = []
+for i in range(n):
+  li = list(input())
+  chess.append(li)
+
+#체스판
+chess1 = [['W','B','W','B','W','B','W','B'],
+          ['B','W','B','W','B','W','B','W'],
+          ['W','B','W','B','W','B','W','B'],
+          ['B','W','B','W','B','W','B','W'],
+          ['W','B','W','B','W','B','W','B'],
+          ['B','W','B','W','B','W','B','W'],
+          ['W','B','W','B','W','B','W','B'],
+          ['B','W','B','W','B','W','B','W']]
+
+chess2 = [['B','W','B','W','B','W','B','W'],
+          ['W','B','W','B','W','B','W','B'],
+          ['B','W','B','W','B','W','B','W'],
+          ['W','B','W','B','W','B','W','B'],
+          ['B','W','B','W','B','W','B','W'],
+          ['W','B','W','B','W','B','W','B'],
+          ['B','W','B','W','B','W','B','W'],
+          ['W','B','W','B','W','B','W','B']]
+
+#브루트포스
+square = []
+for i in range(n-7):
+  for j in range(m-7):
+    s = board(i,j,chess)#시작지점 설정
+    square.append(s)
+#출력
+print(min(square))
