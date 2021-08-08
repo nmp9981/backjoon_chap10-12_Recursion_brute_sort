@@ -1,0 +1,20 @@
+#입력
+n = int(input())
+#분해합 결과를 리스트에 담기
+num = [0]*1000055
+for i in range(1,len(num)):
+  s = 0
+  for j in str(i):
+    s += int(j)
+  s += i
+  num[i] = s
+
+#출력
+l = len(num)
+for i in range(1,l):
+  if num[i] == n:
+    print(i)
+    break
+  if i == l - 1:#못찯으면
+    print(0)
+    break
