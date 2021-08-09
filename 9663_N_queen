@@ -1,0 +1,31 @@
+#퀸을 놓을 수 있는가?
+def possible(x):
+  for i in range(x):
+    #같은 열, 대각선 확인
+    if abs(row[i]-row[x]) == abs(x-i):
+      return False
+  return True
+
+#백트래킹
+def dfs(x):
+  global result
+  if x == n:
+    result += 1
+  else:
+    #모든 행 검사(x는 열)
+    for i in range(n):
+      if visit[i]: #i행에 퀸이 있으면 그행엔 퀸을 못놓는다
+        continue
+      row[x] = i #퀸 배치
+      if possible(x):
+        visit[i] = True
+        dfs(x+1)
+        visit[i] = False
+
+#입력
+n = int(input())
+row = [0]*n #모든 행
+visit = [0]*n #퀸이 잇는가?
+result = 0
+dfs(0) #맨 앞줄부터
+print(result)
