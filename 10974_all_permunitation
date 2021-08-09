@@ -1,0 +1,17 @@
+#백트래킹
+def backt(depth,n):
+  if depth == n:
+    for i in s:
+      print(i+1,end=" ")
+    print()
+    return
+  
+  for i in range(n):
+    if i not in s:
+      s.append(i)
+      backt(depth+1,n)
+      s.pop()
+#입력
+n = int(input())
+s = []
+backt(0,n)
