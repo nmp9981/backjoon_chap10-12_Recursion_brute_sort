@@ -1,0 +1,9 @@
+#입력
+n = int(input())
+six = [666]
+#숌
+for i in range(1665,2670000):
+  if '666' in str(i):
+    six.append(i)
+#출력
+print(six[n-1])#리스트는 0번부터 시작
