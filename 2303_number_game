@@ -1,0 +1,31 @@
+#백트래킹(모든 순열 조합 구함)
+def backt(depth,n,m):
+  if depth == m:
+    sum = 0
+    for i in s:
+      sum += li[i]
+    total.append(sum%10)
+    return 
+  
+  for i in range(n):
+    if i not in s:
+      s.append(i)
+      backt(depth+1,n,m)
+      s.pop()
+
+#입력
+t = int(input())
+maxi = 0
+index = 0
+for i in range(t):
+  li = list(map(int, input().split()))
+  s = []
+  total = []
+  backt(0,5,3)
+
+  if maxi <= max(total):
+    maxi = max(total)
+    index = i
+  
+#출력(리스트는 0번부터 시작했으므로)
+print(index+1)
