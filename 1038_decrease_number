@@ -1,0 +1,38 @@
+#백트래킹
+def backt(depth,x):
+  if depth == x:
+    m = []
+    for i in range(len(s)-1,-1,-1):
+      m.append(s[i])
+    li.append(m)
+    return
+  
+  for i in range(9,-1,-1):
+    if i not in s:
+      if depth == 0 or s[len(s)-1] < i:
+        s.append(i)  
+        backt(depth+1,x)
+        s.pop()
+
+#입력
+n = int(input())
+#최대 9876543210
+if n >= 1023:
+  print(-1)
+elif n <= 9:
+  print(n)
+elif n == 1022:
+  print(9876543210)
+else:
+  lis = [] #종합
+  for i in range(2,10):
+    li = [] #i자리수 리스트
+    s = []
+    backt(0,i)
+    li.sort()#i자리수에 대해 정렬
+    lis += li
+
+  #출력
+  ans = lis[n-10]
+  for i in ans:
+    print(i,end='')
