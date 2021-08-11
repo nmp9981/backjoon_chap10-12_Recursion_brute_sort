@@ -1,0 +1,16 @@
+import math
+#입력
+n,x,y = map(int, input().split())
+#왼쪽수가 더 크도록
+a = min(x,y)
+b = max(x,y)
+#토너먼트
+count = 1
+while True:
+  if b == a+1 and b%2==0:
+    print(count)
+    break
+  else:#토너먼트 특성상 다음 번호는 /2, 반올림
+    a = math.ceil(a/2)
+    b = math.ceil(b/2)
+    count += 1
