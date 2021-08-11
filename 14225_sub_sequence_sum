@@ -1,0 +1,33 @@
+#백트래킹
+def backt(depth,n,x):
+  if depth == x:
+    tot = 0
+    #합구하기
+    for i in s:
+      tot += su[i]
+    add[tot] = False
+    add[total-tot] = False
+    return
+  
+  for i in range(n):
+    if i not in s:
+      if depth == 0 or s[len(s)-1]<i:
+        s.append(i)
+        backt(depth+1,n,x)
+        s.pop()
+
+#입력
+n = int(input())
+su = list(map(int, input().split()))
+total = sum(su)
+add = [True]*2000001 #합 리스트(최대 200만)
+for i in range(1,n//2+1):
+  s = []
+  backt(0,n,i)
+add[total] = False
+
+#출력
+for i in range(1,2000001):
+  if add[i] == True:#나올 수 없는 
+    print(i)
+    break
