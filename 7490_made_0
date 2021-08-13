@@ -1,0 +1,60 @@
+#백트래킹
+def backt(depth,n):
+  if depth == n-1:
+    m = []
+    for i in s:
+     m.append(symbol[i])
+    
+    #합이 0
+    sum = 1
+    mat = [0]*(2*n-1)
+    #123...n
+    for i in range(0,len(mat),2):
+      mat[i] = i//2+1
+    #연산
+    for i in range(len(mat)):
+      if i%2==1:
+        if m[i//2] == '+':
+          mat[i] = '+'
+          sum += mat[i+1]
+        elif m[i//2] == '-':
+          mat[i] = '-'
+          sum -= mat[i+1]
+        else:
+          mat[i] = ' '
+          if mat[i-2] == '+' and i>=3:
+            sum -= mat[i-1]
+            sum += (mat[i-1]*10+mat[i+1])
+          elif mat[i-2] == '-' and i>=3:
+            sum += mat[i-1]
+            sum -= (mat[i-1]*10+mat[i+1])
+          elif mat[i-2] == ' ' and i>=3:
+            sum += 999
+          elif i<=2:
+            sum += (mat[i-1]*10+mat[i+1])-1
+          
+    if sum == 0:
+      matrix.append(mat)
+    return
+  
+  for i in range(3):
+    s.append(i)
+    backt(depth+1,n)
+    s.pop()
+
+#입력
+t = int(input())
+symbol = ['+','-',' ']
+for i in range(t):
+  matrix = []
+  n = int(input())
+  s = []
+  backt(0,n)
+
+  #출력
+  matrix.sort()
+  for j in range(len(matrix)):
+    for k in matrix[j]:
+      print(k,end='')
+    print()
+  print()
