@@ -1,0 +1,41 @@
+import itertools
+import sys
+#입력
+word1,word2,word3 = map(list,input().split())
+num = [0,1,2,3,4,5,6,7,8,9]
+#알파벳 집합
+set_s = list(set(word1+word2+word3))
+set_s.sort()
+
+#복면산이 성립하는가?
+def add():
+  fir = 0
+  sec = 0
+  thr = 0
+  for i in word1:
+    fir *= 10
+    fir += alnumdic[i]
+  for i in word2:
+    sec *= 10
+    sec += alnumdic[i]
+  for i in word3:
+    thr *= 10
+    thr += alnumdic[i]
+  
+  return thr == fir + sec
+
+#복면산
+l = len(set_s)
+alnumdic = {}#사전생성
+for i in itertools.permutations(num,l):
+  if len(set_s) > 10:#존재하지 않는 경우
+    break
+  
+  #사전에 원소 넣기
+  for k in range(l):
+    alnumdic[set_s[k]] = i[k]
+    
+  if add():
+    print('YES')
+    sys.exit(0)
+print('NO')
