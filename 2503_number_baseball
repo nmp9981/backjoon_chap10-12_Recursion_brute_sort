@@ -1,0 +1,37 @@
+import sys
+import itertools
+#입력
+t = int(input())
+baseball = []
+#조건 입력
+for i in range(t):
+  num,strike,ball = map(int, input().split())
+  baseball.append([num,strike,ball])
+
+#숫자야구
+num = [1,2,3,4,5,6,7,8,9]
+ans = 0
+for li in itertools.permutations(num,3):
+  count = 0
+  for p in baseball:
+    n = str(p[0])#문자형으로
+    stri = 0
+    bal = 0
+    #스트라이크, 볼 판단(int형으로 모두 바꿔줌)
+    for i in range(3):
+      for j in range(3):
+        if int(n[i]) == li[j] and i == j:
+          stri += 1
+        elif int(n[i]) == li[j] and i != j:
+          bal += 1
+
+    #맞지 않는 조건의 수
+    if stri != p[1] or bal != p[2]:
+      count += 1
+    
+  #모두 조건에 부합될 경우
+  if count == 0:
+    ans += 1
+
+#출력
+print(ans)
