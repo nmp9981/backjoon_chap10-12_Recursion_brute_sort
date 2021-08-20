@@ -1,0 +1,35 @@
+#행렬의 곱셈
+def mul(p,q):
+  mat = [[0,0],[0,0]]
+  for i in range(2):
+    for j in range(2):
+      for k in range(2):
+        mat[i][j] += (p[i][k] * q[k][j])%mod
+      mat[i][j] = mat[i][j]%mod
+  return mat
+
+#분할
+def power(m,n):
+  if n == 1:
+    return m
+  
+  if n%2==0:
+    p = power(m,n//2)
+    return mul(p,p)
+  else:
+    p = power(m,n//2)
+    return mul(mul(p,p),m)
+
+#입력
+n = int(input())
+mod = 10**9+7
+m = [[1,1],[1,0]]
+if n<=2:
+  print(1)
+elif n % 2==0:
+  n-=1
+  matrix = power(m,n)
+  print(matrix[0][0])
+else:
+  matrix = power(m,n)
+  print(matrix[0][0])
