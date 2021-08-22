@@ -1,0 +1,40 @@
+#행렬의 곱셈
+def mul(p,q):
+  mat = [[0,0],[0,0]]
+  for i in range(2):
+    for j in range(2):
+      for k in range(2):
+        mat[i][j] += (p[i][k]*q[k][j])%mod
+      mat[i][j] %= mod
+  return mat
+
+#피보나치
+def pibo(m,n):
+  if n==1:
+    return m
+  
+  if n%2==0:
+    p = pibo(m,n//2)
+    return mul(p,p)
+  else:
+    p = pibo(m,n//2)
+    return mul(mul(p,p),m)
+
+#입력
+a,b = map(int, input().split())
+mod = 10**9
+m = [[1,1],[1,0]]
+if a==1:
+  r1 = 0
+else:
+  sum1 = pibo(m,a)
+  r1 = sum1[0][0] - 1
+
+if b==1:
+  r2 = 1
+else:
+  sum2 = pibo(m,b+1)
+  r2 = sum2[0][0] - 1
+
+#출력
+print((r2-r1)%mod)
