@@ -1,0 +1,43 @@
+#최대공약수
+def gcd(r1,r2):
+ 
+  x = max(r1,r2)
+  y = min(r1,r2)
+  while y != 0:
+    r = x % y
+    x = y
+    y = r
+  return x
+    
+#행렬 곱셈
+def mul(p,q):
+  mat = [[0,0],[0,0]]
+  for i in range(2):
+    for j in range(2):
+      for k in range(2):
+        mat[i][j] += (p[i][k]*q[k][j])%mod
+      mat[i][j] %= mod
+  return mat
+
+#피보나치
+def power(m,x):
+  if x <= 1:
+    return m
+
+  if x%2 == 0:
+    p = power(m,x//2)
+    return mul(p,p)
+  else:
+    p = power(m,x//2)
+    return mul(mul(p,p),m)
+
+#입력(GCD먼저하고 피보나치)
+a,b = map(int, input().split())
+k = gcd(a,b)
+mod = 10**9+7
+m = [[1,1],[1,0]]
+pibo = power(m,k-1)
+r = pibo[0][0]
+
+#출력
+print(r)
