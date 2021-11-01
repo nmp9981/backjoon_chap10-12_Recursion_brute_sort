@@ -1,0 +1,68 @@
+#include <iostream>
+#include <cstring>
+#include <cmath>
+#include <cctype>
+#include <algorithm>
+#include <vector>
+#include <chrono>
+#include <stack>
+#include <queue>
+#include <deque>
+#include <utility>
+
+using namespace std;//이름공간 선언
+int h,w;//행, 열
+const int maxi = 501;//최대 지도 크기
+int map[maxi][maxi];//지도
+int block[maxi];//블록
+int total = 0;//총 빗물의 양
+
+//입력
+void input(){
+    cin>>h>>w;
+    for(int i=0;i<w;i++){
+        cin>>block[i];
+    }
+    //블록 설치(맨 위부터)
+    for(int j=0;j<w;j++){
+        for(int i=0;i<block[j];i++){
+            map[i][j] = 1;
+        }
+    }
+}
+
+//빗물의 양
+void rain(){
+    for(int i=0;i<h;i++){//각 행마다 탐색
+        int water = 0;
+        bool flag = false;//채울 수 있는가?
+        for(int j=0;j<w;j++){
+            //각 행의 마지막지점 
+            if(j==w-1 && map[i][j]==0){//채울 수 없음
+                water = 0;//증발(100...00꼴)
+                break;
+            }
+            if(map[i][j]==1){//블록
+                total+=water;//물을 채운다(100...001꼴)
+                water = 0;//물의 양 초기화
+                flag = false;//기본적으로 채울 수 없음
+                if(map[i][j+1] == 0){//다음지점(100...)
+                    flag = true;
+                }
+            }else{//빈공간
+                if(flag==true){//넣을 수 있다면
+                    water++;
+                }
+            }
+        }
+    }
+    cout<<total;//출력
+}
+int main(){
+    cin.tie(0);
+    cout.tie(0);
+
+    input();//입력
+    rain();//빗물의 양
+    return 0;
+}
