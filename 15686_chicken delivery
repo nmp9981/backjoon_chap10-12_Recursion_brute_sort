@@ -1,0 +1,94 @@
+#include <iostream>
+#include <cstring>
+#include <cmath>
+#include <cctype>
+#include <algorithm>
+#include <vector>
+#include <chrono>
+#include <stack>
+#include <queue>
+#include <deque>
+#include <utility>
+
+using namespace std;//이름공간 선언
+int n,m;
+const int inf = 10000000;//초기화값
+int map[51][51];//지도
+int dist[101];//각 집별 거리
+vector<pair<int,int>> chicken;//치킨집
+vector<pair<int,int>> chicken_select;//선택한 치킨집
+vector<pair<int,int>> house;//집
+int ans = 10000000;//정답
+
+//입력
+void input(){
+    cin>>n>>m;
+    //지도입력
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            cin>>map[i][j];
+            if(map[i][j]==1){//집 넣기
+                house.push_back({i,j});
+            }else if(map[i][j]==2){//치킨 넣기
+                chicken.push_back({i,j});
+            }
+        }
+    }
+}
+
+//치킨거리 탐색
+void chicken_dist(int c){
+    //초기화
+    for(int i=0;i<house.size();i++){
+        dist[i] = inf;
+    }
+    
+    //각 집의 위치
+    for(int i=0;i<house.size();i++){
+        int hx = house[i].first;
+        int hy = house[i].second;
+        //선택한 치킨집의 위치
+        for(int j=0;j<m;j++){
+            int cx = chicken_select[j].first;
+            int cy = chicken_select[j].second;
+            
+            //각 집마다 치킨거리를 구한다
+            dist[i] = min(dist[i],abs(hx-cx)+abs(hy-cy));
+        }
+    }
+    
+    //치킨거리의 합
+    int total = 0;
+    for(int i=0;i<house.size();i++){
+        total += dist[i];
+    }
+    ans = min(ans,total);//치킨거리의 총합 갱신
+}
+
+//재귀로 조합구하기
+void dfs(int idx, int cnt){
+    //최소 유지 치킨집 수 도달
+    if(cnt==m){
+        chicken_dist(cnt);//치킨거리 구하기
+        return;
+    }
+    
+    //치킨집 시작번호 탐색
+    for(int i=idx;i<chicken.size();i++){
+        int chi_x = chicken[i].first;//치킨집 위치
+        int chi_y = chicken[i].second;
+        chicken_select.push_back({chi_x,chi_y});//치킨집 넣기
+        dfs(i+1,cnt+1);//다음지점부터, 개수 1증가
+        chicken_select.pop_back();//원래대로
+    }
+}
+
+int main(){
+    cin.tie(0);
+    cout.tie(0);
+
+    input();//입력
+    dfs(0,0);//치킨집 번호, 선택한 치킨집 개수
+    cout<<ans;//출력
+    return 0;
+}
