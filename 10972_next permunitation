@@ -1,0 +1,46 @@
+#include <iostream>
+#include <cstring>
+#include <cmath>
+#include <cctype>
+#include <algorithm>
+#include <vector>
+#include <chrono>
+#include <stack>
+#include <queue>
+#include <deque>
+#include <utility>
+
+using namespace std;//이름공간 선언
+int n;
+vector<int> a;//순열
+
+//입력
+void input(){
+    cin>>n;
+    for(int i=0;i<n;i++){
+        int x;
+        cin>>x;
+        a.push_back(x);
+    }
+}
+
+//다음조합 구하기
+void comb(){
+    //모듈이용, 다음수가 존재한다면
+    if(next_permutation(a.begin(),a.end())){
+        for(int i=0;i<n;i++){
+            cout<<a[i]<<" ";
+        }
+    }else{
+        cout<<-1;//마지막 수였다면
+    }
+}
+
+int main(){
+    cin.tie(0);
+    cout.tie(0);
+
+    input();//입력
+    comb();//다음조합 구하기
+    return 0; 
+}
