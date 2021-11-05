@@ -1,0 +1,59 @@
+#include <iostream>
+#include <cstring>
+#include <cmath>
+#include <cctype>
+#include <algorithm>
+#include <vector>
+#include <chrono>
+#include <stack>
+#include <queue>
+#include <deque>
+#include <utility>
+#include <set>
+
+using namespace std;//이름공간 선언
+int map[5][5];//숫자판
+int dx[] = {-1,1,0,0};//축 이동
+int dy[] = {0,0,-1,1};
+set<int> s;//최종 결과를 담는 집합
+
+//입력
+void input(){
+    for(int i=0;i<5;i++){
+        for(int j=0;j<5;j++){
+            cin>>map[i][j];
+        }
+    }
+}
+
+//점프
+void jump(int cnt,int x,int y,int n){
+    //6글자가 모두 차면
+    if(cnt==0){
+        s.insert(n);//중복되는것 제외 모두 추가
+        return;
+    }
+    //4방탐색
+    for(int i=0;i<4;i++){
+        int nx = x + dx[i];
+        int ny = y + dy[i];
+        //범위내에 있고 미방문
+        if(nx>=0 && nx<5 && ny>=0 && ny<5){
+            int next_n = n + map[nx][ny]*pow(10,cnt-2);//누적값
+            jump(cnt-1,nx,ny,next_n);//다음숫자로 재귀
+        }
+    }
+}
+int main(){
+    cin.tie(0);
+    cout.tie(0);
+
+    input();//입력
+    for(int i=0;i<5;i++){
+        for(int j=0;j<5;j++){
+            jump(6,i,j,map[i][j]*100000);//자릿수, 위치, 값
+        }
+    }
+    cout<<s.size();//출력
+    return 0;
+}
