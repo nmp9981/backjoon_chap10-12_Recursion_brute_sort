@@ -1,0 +1,60 @@
+#include <iostream>
+#include <cstring>
+#include <cmath>
+#include <cctype>
+#include <algorithm>
+#include <vector>
+#include <stack>
+#include <queue>
+#include <deque>
+#include <utility>
+#include <set>
+
+using namespace std;//이름공간 선언
+
+//사람 정보를 담는 구조체
+struct man{
+    string name;
+    int day,month,year;
+};
+
+vector<man> people;
+int n;
+
+//정렬기준
+bool cmp(man A,man B){
+    if(A.year == B.year){
+        if(A.month == B.month){
+            return A.day<B.day;
+        }
+        return A.month<B.month;
+    }
+    return A.year<B.year;
+}
+
+//입력
+void input(){
+	cin>>n;
+	for(int i=0;i<n;i++){
+	    string s;//이름
+	    int d,m,y;//생년월일
+	    cin>>s>>d>>m>>y;
+	    people.push_back({s,d,m,y});
+	}
+	sort(people.begin(),people.end(),cmp);//정렬
+}
+
+//결과
+void result(){
+    cout<<people[n-1].name<<"\n";//연소자
+    cout<<people[0].name<<"\n";//연장자
+}
+
+int main(){
+    //빠른 입출력
+    ios::sync_with_stdio(false);
+
+    input();//입력
+    result();//결과
+    return 0;
+}
