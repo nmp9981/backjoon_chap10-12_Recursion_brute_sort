@@ -1,0 +1,23 @@
+#include <iostream> 
+#include <algorithm> 
+#include <vector>
+using namespace std;
+
+vector<int> arr;
+
+int main(){
+    int test;
+    
+    cin>>test;
+    for(int i=0;i<test;i++){
+        arr.clear();
+        for(int j=0;j<10;j++){
+            int x;
+            cin>>x;
+            arr.push_back(x);
+        }
+        sort(arr.begin(),arr.end());
+        cout<<arr[7]<<"\n";
+    }
+    return 0;
+}
