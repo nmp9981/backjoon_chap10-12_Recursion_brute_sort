@@ -1,0 +1,49 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <cstring>
+#include <cmath>
+#include <queue>
+using namespace std;
+
+int E,S,M;
+int limit_E = 15;
+int limit_S = 28;
+int limit_M = 19;
+
+//입력
+void input(){
+    cin>>E>>S>>M;
+}
+
+void solve(){
+    int year = 1;
+    int e = 1;int s = 1;int m = 1;
+    while(true){
+        if(E==e && S==s && M==m){
+            cout<<year;
+            break;
+        }
+        e+=1;
+        s+=1;
+        m+=1;
+        year+=1;
+        //범위를 넘어감
+        if(limit_M<m){
+            m = 1;
+        }
+        if(limit_S<s){
+            s = 1;
+        }
+        if(limit_E<e){
+            e = 1;
+        }
+    }
+}
+
+int main(){
+    input();//입력
+    solve();//날짜계산
+    return 0;
+}
