@@ -1,0 +1,133 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+//파이어볼 구조체 선언
+struct fireball_info{
+    int x,y,mass,speed,dir;
+};
+
+int n,M,k;
+const int maxi = 51;
+//i,j에 몇번 파이어볼이 들어가있는가?
+vector<fireball_info> board[maxi][maxi]; 
+vector<fireball_info> fireball;
+//축이동
+int dx[8] = {-1,-1,0,1,1,1,0,-1};
+int dy[8] = {0,1,1,1,0,-1,-1,-1};
+
+//입력
+void input(){
+    cin>>n>>M>>k;
+    for(int i=0;i<M;i++){
+        int r,c,m,s,d;
+        cin>>r>>c>>m>>s>>d;
+        fireball.push_back({r,c,m,s,d});
+        board[r][c].push_back({r,c,m,s,d});
+    }
+}
+//초기화
+void init(){
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=n;j++){
+            board[i][j].clear();
+        }
+    }
+}
+//합치기
+void fireball_sum(){
+    vector<fireball_info> temp;
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=n;j++){
+            int cnt = board[i][j].size();
+            //겹치는 것이 없다.
+            if(cnt==0){
+                continue;
+            }
+            if(cnt==1){
+                temp.push_back(board[i][j][0]);
+                continue;
+            }
+            //겹치는 것이 있으면
+            if(cnt>=2){
+                int total_mass = 0;
+                int total_speed = 0;
+                int even = 0;//짝수
+                int odd = 0;//홀수
+                for(int k=0;k<cnt;k++){
+                    total_mass+=board[i][j][k].mass;
+                    total_speed+=board[i][j][k].speed;
+                    if(board[i][j][k].dir%2==0){
+                        even++;
+                    }else{
+                        odd++;
+                    }
+                }
+                //4개의 파이어볼로 나누기
+                int new_mass = total_mass/5;
+                int new_speed = total_speed/cnt;
+                if(new_mass==0){//질량이 0이면 패스
+                    continue;
+                }
+                //같은 방향인가?
+                if(even==0 || odd==0){
+                    for(int k=0;k<4;k++){
+                        temp.push_back({i,j,new_mass,new_speed,2*k});
+                    }
+                }else{
+                    for(int k=0;k<4;k++){
+                        temp.push_back({i,j,new_mass,new_speed,2*k+1});
+                    }
+                }
+            }
+        }
+    }
+    fireball = temp;//갱신
+}
+//이동
+void move(){
+    while(k--){
+        init();//board 초기화
+        //파이어볼 이동
+        for(int j=0;j<fireball.size();j++){
+            int x = fireball[j].x;//위치
+            int y = fireball[j].y;
+            int mass = fireball[j].mass;//질량
+            int speed = fireball[j].speed;//속도
+            int dir = fireball[j].dir;//방향
+            
+            //이동하기(맵은 1~n까지의 범위이다.)
+            int amount = speed%n;
+            int next_x = x+amount*dx[dir];
+            int next_y = y+amount*dy[dir];
+            if(next_x<1){
+                next_x += n;
+            }
+            if(next_y<1){
+                next_y += n;
+            }
+            if(next_x>n){
+                next_x -= n;
+            }
+            if(next_y>n){
+                next_y -= n;
+            }
+            board[next_x][next_y].push_back({next_x,next_y,mass,speed,dir});
+            fireball[j].x = next_x;//지점 변경
+            fireball[j].y = next_y;
+        }
+        //합치기
+        fireball_sum();
+    }
+    //남은질량 구하기
+    int ans = 0;
+    for(int i=0;i<fireball.size();i++){
+        ans+=fireball[i].mass;
+    }
+    cout<<ans;
+}
+int main(){
+    input();
+    move();
+    return 0;
+}
