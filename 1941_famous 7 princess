@@ -1,0 +1,102 @@
+#include <iostream>
+#include <vector>
+#include <cstring>
+#include <queue>
+using namespace std;
+
+string maps[5];//자리배치
+bool visit[5][5];//방문 체크
+bool comb_visit[25];//조합 방문
+vector<pair<int,int>> princess;//조합넣기
+int ans = 0;//총 경우의 수
+
+//축 이동
+int dx[4] = {-1,1,0,0};
+int dy[4] = {0,0,-1,1};
+
+//입력
+void input(){
+    for(int i=0;i<5;i++){
+        cin>>maps[i];
+    }
+    memset(comb_visit,false,sizeof(comb_visit));//초기화
+}
+
+//연결 되어 있는가?
+bool is_connect(){
+    memset(visit,false,sizeof(visit));
+    queue<pair<int,int>> q;
+    int total = 1;
+    //맨 처음값
+    int first_x = princess[0].first;
+    int first_y = princess[0].second;
+    q.push({first_x,first_y});
+    visit[first_x][first_y] = true;//방문체크
+    
+    while(!q.empty()){
+        int x = q.front().first;
+        int y = q.front().second;
+        q.pop();
+        //다음지점
+        for(int k=0;k<4;k++){
+            int nx = x + dx[k];
+            int ny = y + dy[k];
+            //범위내에 들고 미방문
+            if(visit[nx][ny]==false && nx>=0 && nx<5 && ny>=0 && ny<5){
+                //뽑은 7명인가?
+                if(comb_visit[5*nx+ny]==true){
+                    q.push({nx,ny});
+                    visit[nx][ny] = true;
+                    total++;
+                }
+            }
+        }
+    }
+    //7명이 모두 연결되었는가?
+    if(total==7){
+        return true;
+    }
+    return false;
+}
+//som파가 우세한가?
+bool is_som(){
+    int yeon = 0;
+    for(int i=0;i<7;i++){
+        int nx = princess[i].first;
+        int ny = princess[i].second;
+        if(maps[nx][ny]=='Y'){
+            yeon++;
+        }
+    }
+    if(yeon>=4){
+        return false;
+    }
+    return true;
+}
+//25C7
+void dfs(int idx,int cnt){//인덱스, 개수
+    //7명을 모았으면
+    if(cnt==7){
+        //som파가 우세하고 서로 연결되어 있는가?
+        if(is_som()){
+            if(is_connect()){
+                ans++;
+            }
+        }
+    }
+    for(int i=idx;i<25;i++){
+        if(comb_visit[i]==false){//미방문이면
+            comb_visit[i] = true;//방문 체크 및 등록
+            princess.push_back({i/5,i%5});
+            dfs(i+1,cnt+1);
+            comb_visit[i] = false;//체크 해제 및 등록해제
+            princess.pop_back();
+        }
+    }
+}
+int main(){
+    input();//입력
+    dfs(0,0);//25개중 7개 뽑기
+    cout<<ans;//출력
+    return 0;
+}
